@@ -30,6 +30,10 @@ public class MainActivity extends AppCompatActivity {
                 String email=_txtEmail.getText().toString();
                 String username=_txtUser.getText().toString();
                 String password=_txtpass.getText().toString();
+                String type="reg";
+                BackgroundTask backgroundTask =new BackgroundTask(getApplicationContext());
+                backgroundTask.execute(type, name, address, email, username, password);
+
 
             }
         });
