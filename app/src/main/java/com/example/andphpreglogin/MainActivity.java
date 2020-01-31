@@ -15,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        _btnLogin=(Button)findViewById(R.id.btnLogin);
         _btnReg=(Button)findViewById(R.id.btnReg);
         _txtName=(EditText)findViewById(R.id.txtName);
         _txtAdd=(EditText)findViewById(R.id.txtAdd);
@@ -31,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
                 String username=_txtUser.getText().toString();
                 String password=_txtpass.getText().toString();
                 String type="reg";
-                BackgroundTask backgroundTask =new BackgroundTask(getApplicationContext());
+                BackgroundTask backgroundTask = new BackgroundTask(getApplicationContext());
                 backgroundTask.execute(type, name, address, email, username, password);
 
 

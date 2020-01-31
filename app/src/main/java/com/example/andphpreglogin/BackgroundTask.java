@@ -25,13 +25,14 @@ public class BackgroundTask extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
         String type=strings[0];
-        String name=strings[1];
-        String address=strings[2];
-        String email=strings[3];
-        String username=strings[4];
-        String password=strings[5];
+
         String reqURL="http://192.168.1.5/Project/andphpreg.php";
         if(type.equals("reg")){
+            String name=strings[1];
+            String address=strings[2];
+            String email=strings[3];
+            String username=strings[4];
+            String password=strings[5];
             try{
                 URL url=new URL(reqURL);
                 try{
@@ -42,7 +43,9 @@ public class BackgroundTask extends AsyncTask<String, String, String> {
                     OutputStream outputStream=httpURLConnection.getOutputStream();
                     OutputStreamWriter outputStreamWriter=new OutputStreamWriter(outputStream,     "UTF-8");
                     BufferedWriter bufferedWriter=new BufferedWriter(outputStreamWriter);
-                    String insert_data= URLEncoder.encode("name", "UTF-8")+"="+URLEncoder.encode(name, "UTF-8")+
+                    String insert_data= URLEncoder.encode("type", "UTF-8")+"="+URLEncoder.encode(type, "UTF-8")+
+
+                            "&"+URLEncoder.encode("name", "UTF-8")+"="+URLEncoder.encode(name, "UTF-8")+
                             "&"+URLEncoder.encode("address", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8")+
                             "&"+URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8")+
                             "&"+URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(username, "UTF-8")+
@@ -71,6 +74,48 @@ public class BackgroundTask extends AsyncTask<String, String, String> {
                 e.printStackTrace();
             }
         }
+
+        else if(type.equals("login")){
+            String username=strings[1];
+            String password=strings[2];
+            try{
+                URL url=new URL(reqURL);
+                try{
+                    HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
+                    httpURLConnection.setRequestMethod("POST");
+                    httpURLConnection.setDoOutput(true);
+                    httpURLConnection.setDoInput(true);
+                    OutputStream outputStream=httpURLConnection.getOutputStream();
+                    OutputStreamWriter outputStreamWriter=new OutputStreamWriter(outputStream,     "UTF-8");
+                    BufferedWriter bufferedWriter=new BufferedWriter(outputStreamWriter);
+                    String insert_data= URLEncoder.encode("type", "UTF-8")+"="+URLEncoder.encode(type, "UTF-8")+
+                            "&"+URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(username, "UTF-8")+
+                            "&"+URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password, "UTF-8");
+                    bufferedWriter.write(insert_data);
+                    bufferedWriter.flush();
+                    bufferedWriter.close();
+                    InputStream inputStream=httpURLConnection.getInputStream();
+                    InputStreamReader inputStreamReader=new InputStreamReader(inputStream, "ISO-8859-1");
+                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                    String result="";
+                    String line="";
+                    StringBuilder stringBuilder=new StringBuilder();
+                    while ((line=bufferedReader.readLine())!=null){
+                        stringBuilder.append(line).append("\n");
+                    }
+                    result=stringBuilder.toString();
+                    bufferedReader.close();
+                    inputStream.close();
+                    httpURLConnection.disconnect();
+                    return result;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }catch (MalformedURLException e){
+                e.printStackTrace();
+            }
+        }
+
         return null;
     }
 
