@@ -26,7 +26,7 @@ public class BackgroundTask extends AsyncTask<String, String, String> {
     protected String doInBackground(String... strings) {
         String type=strings[0];
 
-        String reqURL="http://192.168.1.5/Project/andphpreg.php";
+        String reqURL="https://nbisdb.000webhostapp.com/index.php";
         if(type.equals("reg")){
             String name=strings[1];
             String address=strings[2];
@@ -49,7 +49,7 @@ public class BackgroundTask extends AsyncTask<String, String, String> {
                             "&"+URLEncoder.encode("address", "UTF-8")+"="+URLEncoder.encode(address, "UTF-8")+
                             "&"+URLEncoder.encode("email", "UTF-8")+"="+URLEncoder.encode(email, "UTF-8")+
                             "&"+URLEncoder.encode("username", "UTF-8")+"="+URLEncoder.encode(username, "UTF-8")+
-                            "&"+URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password+"nonsense", "UTF-8");
+                            "&"+URLEncoder.encode("password", "UTF-8")+"="+URLEncoder.encode(password, "UTF-8");
                     bufferedWriter.write(insert_data);
                     bufferedWriter.flush();
                     bufferedWriter.close();

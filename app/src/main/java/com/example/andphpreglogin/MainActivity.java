@@ -2,13 +2,14 @@ package com.example.andphpreglogin;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 public class MainActivity extends AppCompatActivity {
-    Button _btnReg, _btnLogin;
+    Button _btnReg, _btnLogin, btnlogin;
     EditText _txtName, _txtAdd, _txtEmail, _txtUser, _txtpass;
 
     @Override
@@ -21,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         _txtEmail=(EditText)findViewById(R.id.txtEmail);
         _txtUser=(EditText)findViewById(R.id.txtUser);
         _txtpass=(EditText)findViewById(R.id.txtPass);
+        btnlogin = (Button)findViewById(R.id.btnlogin);
+
         _btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
                 backgroundTask.execute(type, name, address, email, username, password);
 
 
+            }
+        });
+
+        btnlogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(i);
             }
         });
 
